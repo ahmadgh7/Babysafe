@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "359785763848",
+    "firebase_url": "https://babysafe-37b75.firebaseio.com",
+    "project_id": "babysafe-37b75",
+    "storage_bucket": "babysafe-37b75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359785763848:android:0ebfa52434966c39",
+        "android_client_info": {
+          "package_name": "com.babysafe.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359785763848-oir568spjf2816e4mkdv33dba5669lrs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.babysafe.android",
+            "certificate_hash": "d1b10fff1f5a81a37bcc29fa9b536d6903114e60"
+          }
+        },
+        {
+          "client_id": "359785763848-l20jgmr3tg19cq4a913jltjnll4gdtiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe6H-kQe4buKHvgywdqLAeYjqVy2TUalE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359785763848-l20jgmr3tg19cq4a913jltjnll4gdtiv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
