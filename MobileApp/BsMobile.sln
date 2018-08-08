@@ -5,26 +5,37 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BsMobile", "BsMobile\BsMobile.csproj", "{FB2F6198-24F2-44FD-83E7-C3F565203570}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MobileApp", "MobileApp", "{8A7883E5-B921-49FB-98B8-54554B9C5256}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|x64.Build.0 = Debug|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Debug|x86.Deploy.0 = Debug|Any CPU
 		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|x64.ActiveCfg = Release|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|x64.Build.0 = Release|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|x64.Deploy.0 = Release|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|x86.Build.0 = Release|Any CPU
+		{FB2F6198-24F2-44FD-83E7-C3F565203570}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{FB2F6198-24F2-44FD-83E7-C3F565203570} = {8A7883E5-B921-49FB-98B8-54554B9C5256}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D102B3BC-70B5-4B2A-A101-C86AE7B5043D}
