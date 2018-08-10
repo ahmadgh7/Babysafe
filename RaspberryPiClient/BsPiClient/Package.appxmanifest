@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="47d77310-4819-4b33-aabc-2324f2167015"
-    Publisher="CN=MSFT"
+    Name="e92e8c1f-9443-477a-945c-b6fcc213b2f5"
+    Publisher="CN=ahghanna"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="47d77310-4819-4b33-aabc-2324f2167015" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="e92e8c1f-9443-477a-945c-b6fcc213b2f5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>WeatherDataReporter</DisplayName>
-    <PublisherDisplayName>MSFT</PublisherDisplayName>
+    <DisplayName>BsPiClient</DisplayName>
+    <PublisherDisplayName>ahghanna</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -45,6 +45,5 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
-    <DeviceCapability Name="lowLevel" />
   </Capabilities>
 </Package>
