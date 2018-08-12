@@ -18,7 +18,7 @@ namespace DatabaseAPI
 
         [FunctionName("UpdateToken")]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]
             HttpRequestMessage req, TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
