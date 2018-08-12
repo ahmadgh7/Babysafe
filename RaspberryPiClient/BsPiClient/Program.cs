@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Azure.Devices;
 using Microsoft.Azure.Devices.Client;
 using Newtonsoft.Json;
 
@@ -9,13 +8,13 @@ namespace BsPiClient
 {
     internal class Program
     {
+        private const string ConnectionString = "HostName=Babysafe.azure-devices.net;DeviceId=Pi;SharedAccessKey=X+KC5AKvBZuEGIgWuwOZA8GvssxcqdEb7w0u584f8NY=";
         private static DeviceClient _deviceClient;
-        private static readonly string _connectionString = "HostName=Babysafe.azure-devices.net;DeviceId=Pi;SharedAccessKey=X+KC5AKvBZuEGIgWuwOZA8GvssxcqdEb7w0u584f8NY=";
 
         private static void Main(string[] args)
         {
             // Connect to the IoT hub using the MQTT protocol
-            _deviceClient = DeviceClient.CreateFromConnectionString(_connectionString, TransportType.Mqtt);
+            _deviceClient = DeviceClient.CreateFromConnectionString(ConnectionString, TransportType.Mqtt);
             SendDeviceToCloudMessagesAsync();
             Console.ReadLine();
         }
@@ -23,15 +22,12 @@ namespace BsPiClient
         // Async method to send simulated telemetry
         private static async void SendDeviceToCloudMessagesAsync()
         {
-            // Initial telemetry values
-            double minTemperature = 20;
-            double minHumidity = 60;
-            Random rand = new Random();
+
 
             while (true)
             {
-                double currentTemperature = minTemperature + rand.NextDouble() * 15;
-                double currentHumidity = minHumidity + rand.NextDouble() * 20;
+                var currentTemperature = WeatherProvider.GetTemperature();
+                var currentHumidity = WeatherProvider.GetTemperature();
 
                 // Create JSON message
                 var telemetryDataPoint = new
