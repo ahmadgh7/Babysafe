@@ -8,18 +8,18 @@ namespace BsMobile
     [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     public class MyFirebaseMessagingService : FirebaseMessagingService
     {
-        private string TAG = "MyFirebaseMessagingService";
+        private const string Tag = "MyFirebaseMessagingService";
 
         public override void OnMessageReceived(RemoteMessage message)
         {
             // TODO(developer): Handle FCM messages here.
             // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-            Log.Debug(TAG, "From: " + message.From);
+            Log.Debug(Tag, "From: " + message.From);
 
             // Check if message contains a notification payload.
             if (message.GetNotification() != null)
             {
-                Log.Debug(TAG, "Message Notification Body: " + message.GetNotification().Body);
+                Log.Debug(Tag, "Message Notification Body: " + message.GetNotification().Body);
             }
         }
     }

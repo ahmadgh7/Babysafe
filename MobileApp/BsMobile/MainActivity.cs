@@ -25,7 +25,8 @@ namespace BsMobile
             FirebaseApp.InitializeApp(Application.Context);
 
             // Get updated InstanceID token.
-            UpdateToken().Wait();
+            Task updateToken = Task.Factory.StartNew(UpdateToken);
+            updateToken.Wait();
         }
 
         private static async Task UpdateToken()

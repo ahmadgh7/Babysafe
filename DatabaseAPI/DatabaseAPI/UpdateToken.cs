@@ -33,8 +33,8 @@ namespace DatabaseAPI
                 .Value;
 
             return ExecuteQuery(deviceId, token)
-                ? req.CreateResponse(HttpStatusCode.BadRequest, "Failed to update token")
-                : req.CreateResponse(HttpStatusCode.OK);
+                ? req.CreateResponse(HttpStatusCode.OK)
+                : req.CreateResponse(HttpStatusCode.BadRequest, "Failed to update token");
         }
 
         private static bool ExecuteQuery(string deviceId, string token)
