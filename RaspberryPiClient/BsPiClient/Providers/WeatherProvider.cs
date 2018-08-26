@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BsPiClient
+namespace BsPiClient.Providers
 {
     internal class WeatherProvider
     {
