@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 
 namespace BsPiClient.MLX90640
@@ -20,12 +21,15 @@ namespace BsPiClient.MLX90640
         public bool IsPresenceDetected()
         {
             var redPixels = _pixels.Cast<Pixel>().Count(IsRedPixel);
-            return redPixels > 50;
+            var isPresenceDetected = redPixels > 50;
+            Console.WriteLine(isPresenceDetected ? "Presence detected, Number of red pixels: " + redPixels : "No presence detected, Number of red pixels: " + redPixels);
+            return isPresenceDetected;
         }
 
         private static bool IsRedPixel(Pixel pixel)
         {
-            return pixel.Red > 127;
+            var color = Color.FromArgb(0,pixel.Red, pixel.Green, pixel.Blue);
+            return color.GetHue() < 60;
         }
     }
 }

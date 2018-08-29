@@ -12,62 +12,78 @@ namespace BsPiClient
         private const string ConnectionString = "HostName=Babysafe.azure-devices.net;DeviceId=Pi;SharedAccessKey=X+KC5AKvBZuEGIgWuwOZA8GvssxcqdEb7w0u584f8NY=";
         private static DeviceClient _deviceClient;
 
-        private static void Main()
+        private static async Task Main()
         {
             // Connect to the IoT hub using the MQTT protocol
+            Console.WriteLine("Creating IoT hub");
             _deviceClient = DeviceClient.CreateFromConnectionString(ConnectionString, TransportType.Mqtt);
-            Loop();
+
+            await Loop();
         }
 
-        // Async method to send simulated telemetry
-        private static async void Loop()
+        private static async Task Loop()
         {
+            Console.WriteLine("Entering loop...");
+
             while (true)
             {
+                Console.WriteLine("Reading car RPM");
+
                 var carRpm = CarDataProvider.GetRpm();
-                if (carRpm < 1)
+                if (carRpm >= 1)
                 {
-                    var presence = PresenceProvider.GetPresence();
-                    if (presence)
-                    {
-                        await Task.Delay(120000);
-                        presence = PresenceProvider.GetPresence();
-                        if (presence)
-                        {
-                            await SendDataToCloud(carRpm, presence: true);
-                            continue;
-                        }
-                    }
-                    await SendDataToCloud(carRpm, presence: false);
+                    await SendMessageToCloud(carRpm);
+                    await Task.Delay(5000);
                 }
                 else
                 {
-                    await SendDataToCloud(carRpm);
+                    Console.WriteLine("Car is off");
+                    Console.WriteLine("Getting presence");
+                    var presence = PresenceProvider.GetPresence();
+                    if (presence)
+                    {
+                        await Task.Delay(5000);
+                        Console.WriteLine("Verifying presence still there");
+                        presence = PresenceProvider.GetPresence();
+                        if (presence)
+                        {
+                            await SendMessageToCloud(carRpm, presence: true);
+                            return;
+                        }
+                    }
+
+                    await SendMessageToCloud(carRpm, presence: false);
+                    return;
                 }
-                await Task.Delay(60000);
             }
-            // ReSharper disable once FunctionNeverReturns
         }
 
-        private static async Task SendDataToCloud(int carRpm, bool? presence = null)
+        private static async Task SendMessageToCloud(int carRpm, bool? presence = null)
         {
-            // Create JSON message
-            var telemetryDataPoint = new
+            try
             {
-                carRpm,
-                presence
-            };
+                // Create JSON message
+                var telemetryDataPoint = new
+                {
+                    carStatus = carRpm < 1 ? "off" : "on",
+                    carRpm,
+                    baby = presence == true ? "yes" : "no"
+                };
+                var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
+                var message = new Message(Encoding.ASCII.GetBytes(messageString));
 
-            var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
-            var message = new Message(Encoding.ASCII.GetBytes(messageString));
+                // Add a custom application property to the message.
+                // An IoT hub can filter on these properties without access to the message body.
+                message.Properties.Add("temperatureAlert", carRpm < 1 && presence == true ? "true" : "false");
 
-            // Add a custom application property to the message.
-            // An IoT hub can filter on these properties without access to the message body.
-            message.Properties.Add("temperatureAlert", carRpm < 1 && presence == true  ? "true" : "false");
-
-            // Send the tlemetry message
-            await _deviceClient.SendEventAsync(message);
-            Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+                // Send the tlemetry message
+                await _deviceClient.SendEventAsync(message);
+                Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to send message to cloud: " + ex);
+            }
         }
     }
 }

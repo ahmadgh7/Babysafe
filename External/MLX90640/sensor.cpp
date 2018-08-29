@@ -22,7 +22,7 @@
 #define   PRNT_PARAM_CALC_TA
 #define   DEBUG_EEPROM
 #define   DEBUG_CONFIG
-#define   DEBUG_STATUS
+//#define   DEBUG_STATUS
 #define   DEBUG_READ_MEM
 #define   PRNT_Calc_Vdd
 #define   PRNT_

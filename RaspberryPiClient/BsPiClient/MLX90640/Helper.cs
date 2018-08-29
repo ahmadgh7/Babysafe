@@ -11,27 +11,6 @@ namespace BsPiClient.MLX90640
         private const int Height = 24;
         private const int Width = 32;
 
-        public static string Bash(this string cmd)
-        {
-            var escapedArgs = cmd.Replace("\"", "\\\"");
-
-            var process = new Process()
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "/bin/bash",
-                    Arguments = $"-c \"{escapedArgs}\"",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                }
-            };
-            process.Start();
-            var result = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-            return result;
-        }
-
         public static void CreateImages(string path)
         {
             CreateRawData(path);

@@ -96,14 +96,6 @@ array2d* NormaliseValue()
         returnValues[i][j] = (double)(IMA[i][j] - MINTEMP) / (double)(MAXTEMP - MINTEMP);
       }
   }
-
-  for (i=0; i<NROWS; i++) {
-      //pc.printf("D%2d:",i);
-      for (j=0; j<NCOLS; j++) {
-        printf("%5.3f;", returnValues[i][j]);
-      }
-       printf("\n\r");
-  }
   return &returnValues;
 }
 
@@ -294,22 +286,17 @@ pixelArray* Colorise()
 	RGBfile << "./img/" << currentDateTime() << ".rgb.txt";
   std::ofstream myRGBfile (RGBfile.str(), std::ios::out | std::ios::app);
 
-  printf("1\n\r");
   for (i=0; i<NROWS; i++) {
       for (j=0; j<NCOLS; j++) {
-        printf("IMAGE: %d - MIN: %d, MAX: %d\n\r", IMA[i][j], MINTEMP, MAXTEMP);
         double x = abs((double)(IMA[i][j] - MINTEMP) / (double)(MAXTEMP - MINTEMP));
-        printf("X: %f\n\r", x);
 				if(x < 0.5)
         {
 					int green = ((int)floor((x*2*255)));
-          printf("Green: %d\n\r", green);
 					if(green > 255)
 						green = 255;
 					if(green < 0)
 							green = 0;
 					int blue = ((int)floor(((1-(x*2))*255)));
-          printf("Blue: %d\n\r", blue);
 					if(blue > 255)
 							blue = 255;
 					if(blue < 0)
@@ -319,14 +306,12 @@ pixelArray* Colorise()
 				else if(x >= 0.5)
         {
 					int red = ((int)floor(((x-0.5)*2*255)));
-          printf("Red: %d\n\r", red);
 					if(red > 255)
 						red = 255;
 					if(red < 0)
 						red = 0;
 
 					int green = ((int)floor(((1-((x-0.5)*2))*255)));
-          printf("Green: %d\n\r", green);
 					if(green > 255)
 							green = 255;
 					if(green < 0)
@@ -336,36 +321,26 @@ pixelArray* Colorise()
         }
       }
   }
-  printf("2\n\r");
 	if (myRGBfile.is_open())
 	{
 		myRGBfile << "[";
-		printf("[");
 	}
-  printf("3\n\r");
 	for (i=0; i<NROWS; i++) {
-			//pc.printf("D%2d:",i);
 			if (myRGBfile.is_open())
 			{
 				myRGBfile << "[";
-				printf("[");
 			}
 			for (j=0; j<NCOLS; j++) {
-				//out+=IMA[i][j];
-				//ss <<"%5d;" << IMA[i][j];
 				if (myRGBfile.is_open())
 				{
 					if(j < NCOLS-1)
 					{
 						myRGBfile << "("<<returnValues[i][j].red <<","<< returnValues[i][j].green << ","<<returnValues[i][j].blue << "),";
-						printf("(%d,%d,%d),", returnValues[i][j].red,returnValues[i][j].green,returnValues[i][j].blue);
 					}
 					else
 					{
 						myRGBfile << "("<<returnValues[i][j].red <<","<< returnValues[i][j].green << ","<<returnValues[i][j].blue << ")";
-						printf("(%d,%d,%d)", returnValues[i][j].red,returnValues[i][j].green,returnValues[i][j].blue);
 					}
-
 				}
 			}
 
@@ -374,12 +349,10 @@ pixelArray* Colorise()
 					if(i < NROWS-1)
 					{
 						myRGBfile << "],\n\r";
-						printf("],\n\r");
 					}
 					else
 					{
 						myRGBfile << "]";
-						printf("]");
 					}
 				}
 
@@ -387,87 +360,46 @@ pixelArray* Colorise()
 	if (myRGBfile.is_open())
 	{
 		myRGBfile << "]";
-		printf("]");
 		myRGBfile.close();
 	}
 	printf("\n\r");
 
-	//*************************************************************************************//
-
-  /*for (i=0; i<NROWS; i++) {
-      //pc.printf("D%2d:",i);
-      for (j=0; j<NCOLS; j++) {
-        printf("[%d,%d,%d];", returnValues[i][j].red,returnValues[i][j].green,returnValues[i][j].blue);
-      }
-       printf("\n\r");
-  }*/
   return &returnValues;
 }
 
 void display_Ima()
 {
 
-  int             fd, sleeper;
+  int fd, sleeper;
   std::ostringstream tempfile, bmpFileName; //rawfile,
   std::string oneHBack = OneHoureBackTime();
   tempfile << "./img/" << currentDateTime() << ".temp.txt";
   bmpFileName << "./img/" << currentDateTime() << ".temp.bmp";
-  //rawfile << "./img/" << currentDateTime() << ".raw.txt";
 
   std::ofstream mytempfile (tempfile.str(), std::ios::out | std::ios::app);
-  //std::ofstream myrawfile (rawfile.str(), std::ios::out | std::ios::app);
-
-  /*printf("************RAW DATA************\n\r");
-  int i=0;
-  printf("\n\r");
-  for (i=0;i<NROWS*NCOLS*2;i++) {
-      if (i%32 == 0) printf(" \n\raddr :%x ",i);
-      printf("%5x",ir_data[i]);
-  }
-  printf("\n\n\r");*/
 
   ///std::string out;
   static array2d *NORMALIZED;
   pixelArray *COLORIZED;
-  printf("************NORMALIZED Data***********\n\r");
   NORMALIZED = NormaliseValue();
-  printf("************NORMALIZED Data: %.3f ***********\n\r", *NORMALIZED+6);
-
-	//************************************This saves file to local disk (temp.txt file to img folder) *****************************************************//
-
-  printf("************Temp Data***********\n\r");
-  printf("PRINTING IMAGE FROM DISPALY IMAGE MAIN \n\n\r");
-  //currentDateTime();
   for (i=0; i<NROWS; i++) {
-      //pc.printf("D%2d:",i);
       for (j=0; j<NCOLS; j++) {
-        //out+=IMA[i][j];
-        //ss <<"%5d;" << IMA[i][j];
-        printf("%5d;", IMA[i][j]);
-
         if (mytempfile.is_open())
         {
           mytempfile << IMA[i][j] << " ";
-          //myfile.close();
         }
-        //printf("Print from ss %5d;",ss.str());
       }
        if (mytempfile.is_open())
        {
          mytempfile << "\n\n\r";
 
        }
-       printf("\n\r");
   }
   if (mytempfile.is_open())
     mytempfile.close();
-  printf("\n\r");
 	//*****************************************************************************************//
 
-  printf("************COLORIZED Data***********\n\r");
-  printf("PRINTING IMAGE FROM DISPALY IMAGE MAIN \n\n\r");
   COLORIZED = Colorise();
-  printf("Done Printing! RGB!!");
 
   
 //********************************************This will remove the data that is 1 h old ***********************************///
@@ -509,12 +441,7 @@ void display_Ima()
 #endif
 //*******************************************************************************///
 
-  printf("\n\r");
-  sleeper = 1000000*sleepinsec;
-  if(sleeper > 1500000)
-    sleeper-=1500000;
-  usleep(sleeper);
-
+  printf("Done capture!\n\r");
 } // end display_Ima
 
 
@@ -525,13 +452,13 @@ void display_Ima()
 
 void find_objects()
 {
-
-
     // get cyclops values to start for averaging them
     Get_cyclops_val_init();
 
     Reset_New_Data_In_Ram2();
-
+  
+    printf("Ready to start\n\r");//GET_A_KEY();
+    
 #ifdef CHESS_PAT
     // get the thermal image without de-interlace techniques
     Get_Image_Median_Chess(0);
@@ -543,11 +470,9 @@ void find_objects()
 
     (void) display_Ima();
 
-    printf("REady to start\n\r");//GET_A_KEY();
+    
 
     Reset_New_Data_In_Ram2();
-
-    while (1){
 
 #ifdef CHESS_PAT
                 Get_Image_Median_Chess(1);
@@ -556,11 +481,7 @@ void find_objects()
 #endif
 
                (void) display_Ima();
-                //GET_A_KEY();
-    } // end while
-
-}  // end find objects
-
+}
 
 // *****************
 // * END FUNCTIONS *
@@ -569,42 +490,24 @@ void find_objects()
 // ================
 // = main routine =
 // ================
-const char *defaults[] = { "5"};
-int main(int argc =2, const char* argv[] =defaults)
+int main()
 {
-  printf("1\n\r");
-    if (argc < 2)
-    {
-      printf("2\n\r");
-        std::cerr << "Usage: " << argv[0] << " Sleep in secounds" << std::endl;
+    if (!(10 >> sleepinsec)){
         return 1;
     }
-    else
-    {
-      printf("3\n\r");
-      std::istringstream ss(argv[1]);
 
-      if (!(ss >> sleepinsec)){
-          std::cerr << "Invalid number " << argv[1] << '\n';
-          std::cerr << "Usage: " << argv[0] << " Sleep in secounds <-THIS MEANS NUMBERS ONLY !" << std::endl;
-          return 1;
-        }
-    }
     int x,y;
-    printf("4\n\r");
     if (!bcm2835_init())
     {
       printf("ERROR: CANNOT INIT bcm2835 \n\r");
-      return 0;
+      return 1;
     }
-    printf("5\n\r");
     bcm2835_i2c_begin();
-    printf("6\n\r");
     bcm2835_i2c_set_baudrate(25000);
-    printf("7\n\r");
     Prepaire_coeff();  // get and prepare all eeprom calibration coeff's
     printf("Note: due to the slow To screen print of each pixel\n\r");
     printf("Image sync is lost, fix speed in your application!\n\r");
     //GET_A_KEY();
     find_objects();     // call to top level routine
+    return 0;
 } // end main
