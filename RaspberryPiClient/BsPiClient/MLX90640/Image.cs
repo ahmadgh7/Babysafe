@@ -1,9 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-
-namespace BsPiClient.MLX90640
+﻿namespace BsPiClient.MLX90640
 {
+    using System;
+    using System.Drawing;
+    using System.Linq;
+
     internal class Image
     {
         private const int Height = 24;
@@ -21,8 +21,9 @@ namespace BsPiClient.MLX90640
         public bool IsPresenceDetected()
         {
             var redPixels = _pixels.Cast<Pixel>().Count(IsRedPixel);
-            var isPresenceDetected = redPixels > 50;
-            Console.WriteLine(isPresenceDetected ? "Presence detected, Number of red pixels: " + redPixels : "No presence detected, Number of red pixels: " + redPixels);
+            var isPresenceDetected = redPixels > 350;
+            //Console.WriteLine(isPresenceDetected ? "Presence detected, Number of red pixels: " + redPixels : "No presence detected, Number of red pixels: " + redPixels);
+            Console.WriteLine(isPresenceDetected ? "Presence detected" : "No presence detected");
             return isPresenceDetected;
         }
 

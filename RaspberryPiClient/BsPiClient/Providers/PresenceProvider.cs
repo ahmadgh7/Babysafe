@@ -1,18 +1,18 @@
-﻿using System;
-using BsPiClient.MLX90640;
-
-namespace BsPiClient.Providers
+﻿namespace BsPiClient.Providers
 {
+    using System;
+    using MLX90640;
+
     internal class PresenceProvider
     {
-        private static Sensor _sensor;
+        private static Mlx90640Sensor _sensor;
 
         public static bool GetPresence()
         {
             try
             {
                 if (_sensor == null)
-                   _sensor = new Sensor();
+                   _sensor = new Mlx90640Sensor();
 
                 _sensor.Init();
 
@@ -22,7 +22,7 @@ namespace BsPiClient.Providers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw;
+                return true;
             }
         }
 

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace BsPiClient.Providers
+﻿namespace BsPiClient.Providers
 {
+    using System;
+
     internal class WeatherProvider
     {
         private const double MinTemperature = 20;

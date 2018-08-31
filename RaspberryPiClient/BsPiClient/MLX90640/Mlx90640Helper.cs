@@ -1,12 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-
-namespace BsPiClient.MLX90640
+﻿namespace BsPiClient.MLX90640
 {
-    internal static class Helper
+    using System;
+    using System.Diagnostics;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.IO;
+
+    internal static class Mlx90640Helper
     {
         private const int Height = 24;
         private const int Width = 32;
