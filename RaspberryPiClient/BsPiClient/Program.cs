@@ -37,7 +37,7 @@ namespace BsPiClient
                     case CarSatus.On:
                         Console.WriteLine("Car is on");
                         await SendMessageToCloud(CarSatus.On);
-                        await Task.Delay(5000);
+                        await Task.Delay(120000);
                         break;
 
                     case CarSatus.Off:
@@ -46,7 +46,7 @@ namespace BsPiClient
                         var presence = PresenceProvider.GetPresence();
                         if (presence)
                         {
-                            await Task.Delay(5000);
+                            await Task.Delay(120000);
                             Console.WriteLine("Verifying presence still there");
                             presence = PresenceProvider.GetPresence();
                             if (presence)
